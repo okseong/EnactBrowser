@@ -23,3 +23,7 @@
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security --user-data-dir=“/Users/gglifer/UDD” --no-sandbox --disable-site-isolation-trials
 
 ---
+
+## Block chrome automatic update
+
+defaults write com.google.keystone.agent checkinterval 0

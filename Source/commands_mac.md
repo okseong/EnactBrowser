@@ -6,7 +6,9 @@
 
 ## --disable-web-security
 
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security --user-data-dir=“/Users/gglifer/UDD”
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security --user-data-dir=“/Users/gglifer/UDD” --disable-site-isolation-trials
+
+open -a Google\ Chrome --args --disable-web-security --user-data-dir="/Users/gglifer/UDD" --disable-site-isolation-trials
 
 --user-data-dir="<아무경로>"
 

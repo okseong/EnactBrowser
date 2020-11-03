@@ -17,14 +17,14 @@ th2 = Thread(target=server_child.serve_forever)
 # 종료되는데 시간이 걸릴 수 있습니다
 # lsof -i tcp:<Child.PORT>, lsof -i tcp:<Parent.PORT> 로
 # 현재 서버가 실행되고 있는지 확인할 수 있습니다
-th1.daemon = True
+th1.daeon = True
 th2.daemon = True
 
 # thread 들을 실행시킵니다
 th1.start()
 th2.start()
 
-# tread 들을 통해 server 가 실행될 때까지 기다립니다
+# thread 들을 통해 server 가 실행될 때까지 기다립니다
 while not th1.is_alive() or not th2.is_alive():
     continue
 
@@ -36,10 +36,13 @@ options = webdriver.ChromeOptions()
 options.add_argument('--disable-web-security')
 options.add_argument('--disable-site-isolation-trials')
 
-# localhost:8001 에 서비스되고 있는 parent.html 을 열 driver 를 얻습니다
+# localhost:8001 에 서비스되고 있는 parent.html 을 열 driver_parent 를 얻습니다
+# localhost:8002 에 서비스되고 있는 parent.html 을 열 driver_child 를 얻습니다
 driver_parent = webdriver.Chrome(driver_path, options=options)
+driver_child = webdriver.Chrome(driver_path, options=options)
 
-# driver 로 페이지를 엽니다
+# driver 들로 각 페이지를 엽니다
 driver_parent.get('localhost:8001')
+driver_child.get('localhost:8002')
 
 

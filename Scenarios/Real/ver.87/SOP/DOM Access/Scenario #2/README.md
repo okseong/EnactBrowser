@@ -1,6 +1,6 @@
-# Scenario #1
+# Scenario #2
 
-The child iframe was able to access the parent iframe's DOM.
+The parent iframe was able to access the child iframe's DOM.
 
 ## Environment
 
@@ -22,13 +22,14 @@ The child iframe was able to access the parent iframe's DOM.
   
 ## Behavior
 
-* SOP 에 따르면 child iframe 은 parent iframe's DOM 에 접근이 불가능합니다
+* SOP 에 따르면 parent iframe 은 child iframe's DOM 에 접근이 불가능합니다
 
-* 따라서, child 의 img 가 parent 에서 load 되면 안됩니다
+* 따라서, img 가 parent 에서 load 되면 안됩니다
 
 * 하지만 --disable-web-security, --disable-site-isolation-trials 와 같은
 
 * Args 를 사용함으로써 이를 위반할 수 있었습니다
+
 
 ## Description
 
@@ -36,7 +37,7 @@ The child iframe was able to access the parent iframe's DOM.
 
   * --disable-web-security + (--user-data-dir) 만으로는
   
-  * child iframe 이 parent iframe's DOM 을 Access 할 수 없었습니다
+  * parent iframe 이 child iframe's DOM 을 Access 할 수 없었습니다
 
   * 구글링 결과, --disable-site-isolation-trials 를 넣으면 가능하다길래
 

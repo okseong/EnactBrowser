@@ -13,11 +13,12 @@
 * 김홍균
 
 ---
+
 ### Server(parent, child)
 
-* parent: https://okseong.github.io/parent/staticpages/main.html
+* parent: https://github.com/okseong/server-parent
 
-* child: https://okseong.github.io/child/staticpages/main.html
+* child: https://github.com/okseong/server-child
 
 ---
 

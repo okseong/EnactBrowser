@@ -4,13 +4,20 @@
 
 ---
 
-### # Team
+### # Team Members
 
 * 박은천
 
 * 신규섭
 
 * 김홍균
+
+---
+### Server(parent, child)
+
+* parent: https://okseong.github.io/parent/staticpages/main.html
+
+* child: https://okseong.github.io/child/staticpages/main.html
 
 ---
 

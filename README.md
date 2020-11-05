@@ -16,9 +16,9 @@
 
 ### Server(parent, child)
 
-* parent: https://github.com/okseong/server-parent
+* parent: https://github.com/enact-parent/server-parent
 
-* child: https://github.com/okseong/server-child
+* child: https://github.com/enact-child/server-child
 
 ---
 
@@ -70,6 +70,8 @@
 
 * ~~11/1(일), 10:00AM~~
 
-* __11/4(수), 10:00PM__
+* ~~11/4(수), 10:00PM~~
+
+* __11/8(일), 10:00AM__
 
 ---

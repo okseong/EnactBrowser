@@ -16,9 +16,9 @@ The child iframe was able to access the parent iframe's DOM.
 
 * URL
 
-  * parent = ```http://localhost:8001```
+  * parent = https://enact-parent.github.io/server-parent/staticpages/ver87/scenario1/parent.html
   
-  * child = ```http://localhost:8002```
+  * child = https://enact-child.github.io/server-child/staticpages/ver87/scenario1/child.html
   
 ## Behavior
 

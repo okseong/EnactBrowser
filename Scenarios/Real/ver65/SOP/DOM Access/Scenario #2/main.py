@@ -28,7 +28,7 @@ th2.start()
 while not th1.is_alive() or not th2.is_alive():
     continue
 
-# chromedriver 경로를 얻습니다 (ver.87)
+# chromedriver 경로를 얻습니다 (ver87)
 driver_path = os.getcwd() + '/../chromedriver65_linux'
 
 # selenium 으로 Chrome 실행 시 적용할 Args 를 설정합니다

@@ -1,4 +1,4 @@
-from tests.libmedia.media_harness import MediaTest
+from media_harness import MediaTest
  
  
 class video_loop_test(MediaTest):

@@ -13,21 +13,6 @@
 * 김홍균
 
 ---
-### Server(parent, child)
-
-* parent: https://okseong.github.io/parent/staticpages/main.html
-
-* child: https://okseong.github.io/child/staticpages/main.html
-
----
-
-### Server(parent, child)
-
-* parent: https://github.com/enact-parent/server-parent
-
-* child: https://github.com/enact-child/server-child
-
----
 
 ### # Calendar
 
@@ -53,7 +38,9 @@
 
 * ~~11/13(금), 11:59PM / 학교 수업 / 중간 보고서 제출~~
 
-* 11/20(금), 4:00PM / 기업 프로젝트 / 중간 현황 공유
+* __11/20(금), 4:00PM / 기업 프로젝트 / 중간 현황 공유__
+
+* __11/22(일), 11:59PM / 학교 수업 / 활동로그 및 회의록 제출__
 
 * 12/17(목), 4:00PM / 기업 프로젝트 / 최종 발표
 
@@ -83,6 +70,8 @@
 
 * ~~11/11(수), 11:00PM~~
 
-* __11/15(일), 11:00PM__
+* ~~11/15(일), 11:00PM~~
+
+* __11/19(목), 11:00PM__
 
 ---

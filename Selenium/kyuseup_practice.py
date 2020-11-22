@@ -1,20 +1,106 @@
 from selenium import webdriver
+import tkinter
+from time import sleep
 
-options = webdriver.ChromeOptions()
-options.add_argument('--ignore-certificate-errors')
-options.add_argument('--ignore-ssl-errors')
-options.add_argument('--disable-web-security') # flag 등록
-# options.add_argument('--user-data-dir="C:/chrome"')
-driver = webdriver.Chrome("C:/Users/신규섭/Downloads/chromedriver",chrome_options=options)
+
+window=tkinter.Tk()
+
+def start():
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--ignore-ssl-errors')
+    options.add_argument('--disable-web-security') # flag 등록
+    # options.add_argument('--user-data-dir="C:/chrome"')
+    driver = webdriver.Chrome("C:/Users/신규섭/Downloads/chromedriver",chrome_options=options)
+    driver.get("http://localhost:3000/")
+    testbtn1 = driver.find_element_by_xpath('/html/body/div/div/button[1]')
+    testbtn1.click()
+    driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))   #iframe으로 전환
+    checkbtn1 =  driver.find_element_by_id("fromparent")
+    errorimage = tkinter.PhotoImage(file="error.png")
+    errorcount = 0
+    if checkbtn1 :
+        errorcount+=1
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트에 새로운 element 생성 가능') # 라벨 위젯
+        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
+        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+        #imagelabel.grid(column=1,row=1)
+        #print("dsadad")
+    else:
+        textlabel = tkinter.Label(window, text = '부모사이트에서 새로운 element 생성 불가능') # 라벨 위젯
+        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
+        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+    testbtn2 =  driver.find_element_by_id("child_testbtn1")
+    testbtn2.click()
+    driver.switch_to.parent_frame()
+    sleep(0.1)
+    alert = driver.switch_to.alert
+
+    if alert:
+        errorcount+=1
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 스크립트 실행 가능') # 라벨 위젯
+        textlabel.pack() 
+        alert.dismiss()
+        driver.refresh()
+    else:
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 스크립트 실행 불가능') # 라벨 위젯
+        textlabel.pack() 
+    
+    
+    driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))   #iframe으로 전환
+    testbtn3 =  driver.find_element_by_id("child_testbtn2")
+    testbtn3.click()
+    driver.switch_to.parent_frame()
+    sleep(0.1)
+    checkbtn2=driver.find_element_by_id("fromchild")
+    if checkbtn2 :
+        errorcount+=1
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 새로운 element 생성 가능') # 라벨 위젯
+        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
+        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+        #imagelabel.grid(column=1,row=1)
+        #print("dsadad")
+    else:
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 새로운 element 생성 불가능') # 라벨 위젯
+        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
+        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+    resultlabel = tkinter.Label(window,font=("ariel",15),fg="red" ,text = '총' + str(errorcount) +"개의 취약점 발견") # 라벨 위젯
+    resultlabel.pack() 
+
+
+
+
+
+window.geometry("400x200")
+window.title("Enact 보안 점검")
+button = tkinter.Button(window, text="점검시작", command=start)
+button.pack()
+
+
+
+
+window.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #자체 테스팅 페이지로 테스트
-driver.get("http://localhost:3000/")
-test = driver.find_element_by_xpath('/html/body/div/div/input')
-test.send_keys("sad")
-driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))   #iframe으로 전환
-loginid = driver.find_element_by_xpath('/html/body/div/main/section/div[1]/input')
-loginid.send_keys("sad")
+
+# loginid = driver.find_element_by_xpath('/html/body/div/main/section/div[1]/input')
+# loginid.send_keys("sad")
 
 
 

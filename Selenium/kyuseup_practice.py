@@ -1,9 +1,23 @@
 from selenium import webdriver
 import tkinter
 from time import sleep
+import smtplib
+from datetime import datetime
+import threading
+from email.mime.text import MIMEText
+import time
+
 
 
 window=tkinter.Tk()
+s = smtplib.SMTP('smtp.gmail.com', 587)
+s.starttls()
+s.login('robinshins674@gmail.com', 'cvvisaucrucbcvwu')
+
+
+
+
+
 
 def start():
     options = webdriver.ChromeOptions()
@@ -12,71 +26,161 @@ def start():
     options.add_argument('--disable-web-security') # flag 등록
     # options.add_argument('--user-data-dir="C:/chrome"')
     driver = webdriver.Chrome("C:/Users/신규섭/Downloads/chromedriver",chrome_options=options)
-    driver.get("http://localhost:3000/")
-    testbtn1 = driver.find_element_by_xpath('/html/body/div/div/button[1]')
-    testbtn1.click()
-    driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))   #iframe으로 전환
-    checkbtn1 =  driver.find_element_by_id("fromparent")
+    driver.get("https://enactparent.web.app")
+    checkbtn1 =  driver.find_element_by_id("parent_dom")
+    checkbtn1.click()
+    sleep(0.1)
+    result1 =  driver.find_element_by_xpath("/html/body/div/div[1]/div/p[2]")
     errorimage = tkinter.PhotoImage(file="error.png")
     errorcount = 0
-    if checkbtn1 :
+    log = ""
+    print(result1.text)
+    if result1.text == '실패' :
         errorcount+=1
-        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트에 새로운 element 생성 가능') # 라벨 위젯
+        log = log + "\n" + "부모사이트에서 자식사이트 dom 접근 가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트 dom 접근 가능') # 라벨 위젯
         #imagelabel = tkinter.Label(window,image=errorimage, width=5)
         textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
-        #imagelabel.grid(column=1,row=1)
-        #print("dsadad")
-    else:
-        textlabel = tkinter.Label(window, text = '부모사이트에서 새로운 element 생성 불가능') # 라벨 위젯
-        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
-        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
-    testbtn2 =  driver.find_element_by_id("child_testbtn1")
-    testbtn2.click()
-    driver.switch_to.parent_frame()
-    sleep(0.1)
-    alert = driver.switch_to.alert
 
-    if alert:
-        errorcount+=1
-        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 스크립트 실행 가능') # 라벨 위젯
-        textlabel.pack() 
-        alert.dismiss()
-        driver.refresh()
     else:
-        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 스크립트 실행 불가능') # 라벨 위젯
-        textlabel.pack() 
-    
-    
-    driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))   #iframe으로 전환
-    testbtn3 =  driver.find_element_by_id("child_testbtn2")
-    testbtn3.click()
-    driver.switch_to.parent_frame()
+        log = log + "\n" + "부모사이트에서 자식사이트 dom 접근 불가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트 dom 접근 불가능') # 라벨 위젯
+        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
+        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+    testbtn2 =  driver.find_element_by_id("parent_xml")
+    testbtn2.click()
     sleep(0.1)
-    checkbtn2=driver.find_element_by_id("fromchild")
-    if checkbtn2 :
+    result2 =  driver.find_element_by_xpath("/html/body/div/div[1]/div/p[4]")
+    # driver.switch_to.parent_frame()
+   
+
+    if result2.text == '실패':
         errorcount+=1
-        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 새로운 element 생성 가능') # 라벨 위젯
-        #imagelabel = tkinter.Label(window,image=errorimage, width=5)
-        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
-        #imagelabel.grid(column=1,row=1)
-        #print("dsadad")
+        log = log + "\n" + "부모사이트에서 자식사이트로 XMLHttpRequest 가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XMLHttpRequest 가능') # 라벨 위젯
+        textlabel.pack() 
     else:
-        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트에 새로운 element 생성 불가능') # 라벨 위젯
+        log = log + "\n" + "부모사이트에서 자식사이트로 XMLHttpRequest 불가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XMLHttpRequest 불가능') # 라벨 위젯
+        textlabel.pack() 
+
+    testbtn3 =  driver.find_element_by_id("parent_cookie")
+    testbtn3.click()
+    sleep(0.1)
+    result3 =  driver.find_element_by_xpath("/html/body/div/div[1]/div/p[6]")
+    
+
+    if result3.text == '실패':
+        errorcount+=1
+        log = log + "\n" + "부모사이트에서 자식사이트의 cookie 접근 가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트의 cookie 접근 가능') # 라벨 위젯
+        textlabel.pack() 
+    else:
+        log = log + "\n" + "부모사이트에서 자식사이트의 cookie 접근 불가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트의 cookie 접근 불가능') # 라벨 위젯
+        textlabel.pack() 
+    
+    testbtn4 =  driver.find_element_by_id("parent_xss")
+    testbtn4.click()
+    sleep(0.1)
+    result4 =  driver.find_element_by_xpath("/html/body/div/div[1]/div/p[8]")
+    
+
+    if result4.text == '실패':
+        errorcount+=1
+        log = log + "\n" + "부모사이트에서 자식사이트로 XSS 공격 가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XSS 공격 가능') # 라벨 위젯
+        textlabel.pack() 
+    else:
+        log = log + "\n" + "부모사이트에서 자식사이트로 XSS 공격 불가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XSS 공격 불가능') # 라벨 위젯
+        textlabel.pack() 
+    driver.switch_to.frame(driver.find_element_by_tag_name("iframe"))   #iframe으로 전환
+    checkbtn5 =  driver.find_element_by_id("child_dom")
+    checkbtn5.click()
+    sleep(0.1)
+    result5 =  driver.find_element_by_xpath("/html/body/div/div/p[1]")
+    errorimage = tkinter.PhotoImage(file="error.png")
+    if result5.text == '실패' :
+        errorcount+=1
+        log = log + "\n" + "자식사이트에서 부모사이트 dom 접근 가능"
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트 dom 접근 가능') # 라벨 위젯
+        textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+
+    else:
+        log = log + "\n" + "자식사이트에서 부모사이트 dom 접근 불가능"
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트 dom 접근 불가능') # 라벨 위젯
         #imagelabel = tkinter.Label(window,image=errorimage, width=5)
         textlabel.pack() # 위젯 위치를 적당한 곳에 위치시킨다.(auto)
+    testbtn6 =  driver.find_element_by_id("child_xml")
+    testbtn6.click()
+    sleep(0.1)
+    result6 =  driver.find_element_by_xpath("/html/body/div/div/p[3]")
+    # driver.switch_to.parent_frame()
+  
+
+    if result6.text == '실패':
+        errorcount = errorcount +1
+        print(errorcount)
+        log = log + "\n" + "부모사이트에서 자식사이트로 XMLHttpRequest 가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XMLHttpRequest 가능') # 라벨 위젯
+        textlabel.pack() 
+    else:
+        log = log + "\n" + "부모사이트에서 자식사이트로 XMLHttpRequest 불가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XMLHttpRequest 불가능') # 라벨 위젯
+        textlabel.pack() 
+
+    testbtn7 =  driver.find_element_by_id("child_cookie")
+    testbtn7.click()
+    sleep(0.1)
+    result7 =  driver.find_element_by_xpath("/html/body/div/div/p[5]")
+  
+
+    if result7.text == '실패':
+        errorcount = errorcount +1
+        log = log + "\n" + "자식사이트에서 부모사이트의 cookie 접근 가능"
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트의 cookie 접근 가능') # 라벨 위젯
+        textlabel.pack() 
+    else:
+        log = log + "\n" + "자식사이트에서 부모사이트의 cookie 접근 불가능"
+        textlabel = tkinter.Label(window, text = '자식사이트에서 부모사이트의 cookie 접근 불가능') # 라벨 위젯
+        textlabel.pack() 
+    
+    testbtn8 =  driver.find_element_by_id("child_xss")
+    testbtn8.click()
+    sleep(0.1)
+    result8 =  driver.find_element_by_xpath("/html/body/div/div/p[7]")
+    
+
+    if result8.text == '실패':
+        errorcount+=1
+        log = log + "\n" + "부모사이트에서 자식사이트로 XSS 공격 가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XSS 공격 가능') # 라벨 위젯
+        textlabel.pack() 
+    else:
+        log = log + "\n" + "부모사이트에서 자식사이트로 XSS 공격 불가능"
+        textlabel = tkinter.Label(window, text = '부모사이트에서 자식사이트로 XSS 공격 불가능') # 라벨 위젯
+        textlabel.pack() 
+
+
     resultlabel = tkinter.Label(window,font=("ariel",15),fg="red" ,text = '총' + str(errorcount) +"개의 취약점 발견") # 라벨 위젯
     resultlabel.pack() 
+    msg = MIMEText('검사결과 총 ' + str(errorcount) + "개의 취약점이 발견되었습니다." + '\n' +"\n" +"*상세로그" +"\n" +log)
+    msg['Subject'] = str(datetime.today()) +'날짜의 브라우저 보안취약점 검사 결과입니다.'
+    s.sendmail("robinshins674@gmail.com", "robinshins674@gmail.com", msg.as_string())
+    s.quit()
+    textlabel = tkinter.Label(window, text = '결과를 메일로 발송했습니다!') # 라벨 위젯
+    textlabel.pack() 
+    threading.Timer(5, start).start()
 
 
 
 
 
-window.geometry("400x200")
+window.geometry("400x800")
 window.title("Enact 보안 점검")
 button = tkinter.Button(window, text="점검시작", command=start)
 button.pack()
-
-
 
 
 window.mainloop()

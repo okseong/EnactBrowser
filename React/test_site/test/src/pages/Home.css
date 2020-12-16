@@ -1,0 +1,36 @@
+.homebutton{
+    margin: 10px;
+    width: 300px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.title{
+    font-weight: bolder;
+    font-size: 2.5rem;
+}
+
+.line{
+    outline: 1px #000000;
+    outline-width: 1px;
+    
+}
+
+.result{
+    display: inline-block;
+    margin-left: 30px;
+    font-weight: 900;
+    color: blue;
+}
+.result2{
+    display: inline-block;
+    margin-left: 30px;
+    font-weight: 900;
+    color: red;
+}
+
+.category{
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px #000000;
+}

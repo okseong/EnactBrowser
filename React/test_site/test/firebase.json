@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "site":"enactparent",
+    "public": "build",
+    "headers": [ {
+      "source" : "**",
+      "headers" : [{
+        "key" : "Access-Control-Allow-Origin",
+        "value" : "*"
+      }]
+  }],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -10,22 +10,16 @@ import time
 
 
 window=tkinter.Tk()
-s = smtplib.SMTP('smtp.gmail.com', 587)
-s.starttls()
-s.login('robinshins674@gmail.com', 'cvvisaucrucbcvwu')
-
-
-
-
-
-
 def start():
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
+    s.login('robinshins674@gmail.com', 'cvvisaucrucbcvwu')
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--ignore-ssl-errors')
-    options.add_argument('--disable-web-security') # flag 등록
+    #options.add_argument('--disable-web-security') # flag 등록
     # options.add_argument('--user-data-dir="C:/chrome"')
-    driver = webdriver.Chrome("C:/Users/신규섭/Downloads/chromedriver",chrome_options=options)
+    driver = webdriver.Chrome("C:/dev/chromedriver.exe",chrome_options=options)
     driver.get("https://enactparent.web.app")
     checkbtn1 =  driver.find_element_by_id("parent_dom")
     checkbtn1.click()
@@ -171,6 +165,7 @@ def start():
     s.quit()
     textlabel = tkinter.Label(window, text = '결과를 메일로 발송했습니다!') # 라벨 위젯
     textlabel.pack() 
+    sleep(1)
     threading.Timer(5, start).start()
 
 
